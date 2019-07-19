@@ -1,13 +1,18 @@
 const https = require('https');
 
 const options = {
-  host: 'www.example.org',
-  path: '/'
+	host: 'www.example.org',
+	path: '/',
 };
 
-let callback = function(){
-  console.log('In response handler callback!');
-}
+let callback = function(response) {
+	console.log('In response handler callback!');
+
+	response.on('data', function(chunk) {
+		console.log('[-- CHUNK OF LENGTH ' + chunk.length + ' --]');
+		console.log(chunk.toString());
+	});
+};
 
 console.log('Im about to make the request!');
 
